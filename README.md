@@ -30,5 +30,6 @@
 ## Dependency
 
 * sinatra
+* sinatra-contrib
 * datamapper
 * postgresql (need devel)

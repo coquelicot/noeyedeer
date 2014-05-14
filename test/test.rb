@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
+require 'sinatra/json'
 require 'data_mapper'
 
 # settings
@@ -20,21 +21,26 @@ DataMapper.setup(:default, "postgres://#{settings.dbuser}:#{settings.dbpswd}@#{s
 class Post
   include DataMapper::Resource
   property :id, Serial
+  property :title, String
   property :body, Text
+  property :create_at, DateTime
 end
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
 # sinatra
-get '/' do
-  @posts = Post.all(:order => [ :id.desc ], :limit => 20)
-  erb :index
+get '/list' do
+  json Post.all(:order => [ :id.desc ], :limit => 20)
 end
 
-get '/:data' do
+get '/clean' do
+  Post.all.destroy
+end
+
+get '/create/:title/:data' do
   unless params[:data].empty?
-    Post.create(:body => params[:data])
+    Post.create(:title => params[:title], :body => params[:data], :create_at => Time.now)
   end
   "Post :)"
 end
