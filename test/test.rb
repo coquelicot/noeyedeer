@@ -18,6 +18,9 @@ configure do
   set :dbname, 'noeyedeer'
   set :dbhost, 'localhost'
 
+  # static folder
+  set :public_folder, File.dirname(__FILE__) + '/public'
+
 end
 
 # Sequel
