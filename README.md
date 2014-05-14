@@ -1,6 +1,6 @@
 # noeyedeer
 
-## baseline
+## Baseline
 
 ### 靜態網頁，呈現文章們
 * disqus???
@@ -16,16 +16,16 @@
 * 要可以 reference 參考、以前的話
 * 封存！
 
-## advance
+## Advance
 
 ### 文章相似度 ???
 * hogan
 
-## tech
-* angularjs
-* semantic ui
-* restful api
-* sinatra
+## Tech
+* [sinatra](http://www.sinatrarb.com/)
+* [slim](http://slim-lang.com/)
+* [angularjs](https://angularjs.org/)
+* [semantic-ui](http://semantic-ui.com/)
 
 ## Dependency
 
