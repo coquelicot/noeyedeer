@@ -7,6 +7,10 @@ require 'data_mapper'
 # settings
 configure do
 
+  # server binding
+  set :port, 8880
+  set :bind, '0.0.0.0'
+
   # database
   set :dbuser, 'noeyedeer'
   set :dbpswd, 'iamfcrh>_^'
