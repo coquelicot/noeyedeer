@@ -2,7 +2,8 @@
 
 require 'sinatra'
 require 'sinatra/json'
-require 'data_mapper'
+require 'sequel'
+require 'slim'
 
 # settings
 configure do
@@ -19,33 +20,37 @@ configure do
 
 end
 
-# DataMapper
-DataMapper.setup(:default, "postgres://#{settings.dbuser}:#{settings.dbpswd}@#{settings.dbhost}/#{settings.dbname}")
+# Sequel
+DB = Sequel.connect("postgres://#{settings.dbhost}/#{settings.dbname}", :user => settings.dbuser, :password => settings.dbpswd)
 
-class Post
-  include DataMapper::Resource
-  property :id, Serial
-  property :title, String
-  property :body, Text
-  property :create_at, DateTime
+DB.create_table?(:post) do
+  primary_key :id
+  String :title
+  Text :body
+  DateTime :create_at
 end
 
-DataMapper.finalize
-DataMapper.auto_upgrade!
+class Post < Sequel::Model
+end
 
 # sinatra
 get '/list' do
-  json Post.all(:order => [ :id.desc ], :limit => 20)
+  @posts = Post.reverse_order(:id).limit(20)
+  slim :index
 end
 
-get '/clean' do
-  Post.all.destroy
+get '/api/list' do
+  json Post.reverse_order(:id).limit(20)
 end
 
-get '/create/:title/:data' do
-  unless params[:data].empty?
-    Post.create(:title => params[:title], :body => params[:data], :create_at => Time.now)
+get '/create' do
+  slim :create
+end
+
+post '/api/create' do
+  unless params[:title].empty? or params[:body].empty?
+    Post.create(:title => params[:title], :body => params[:body], :create_at => Time.now)
   end
-  "Post :)"
+  redirect "/list", 303
 end
 

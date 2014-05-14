@@ -26,10 +26,11 @@
 * [slim](http://slim-lang.com/)
 * [angularjs](https://angularjs.org/)
 * [semantic-ui](http://semantic-ui.com/)
+* [sequel](http://sequel.jeremyevans.net/)
 
 ## Dependency
 
 * sinatra
 * sinatra-contrib
-* datamapper
+* sequel
 * postgresql (need devel)
