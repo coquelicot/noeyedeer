@@ -27,3 +27,8 @@
 * restful api
 * sinatra
 
+## Dependency
+
+* sinatra
+* datamapper
+* postgresql (need devel)
