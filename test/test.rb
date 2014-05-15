@@ -33,17 +33,31 @@ DB.create_table?(:post) do
   DateTime :create_at
 end
 
+# make our model serializable
+Sequel::Model.plugin :json_serializer
+
 class Post < Sequel::Model
+
+  def self.get_posts(bound=0, limit=32)
+    if bound <= 0
+      return Post.reverse_order(:id).limit(limit)
+    else
+      return Post.where{id < bound}.reverse_order(:id).limit(limit)
+    end
+  end
+
 end
 
 # sinatra
 get '/list' do
-  @posts = Post.reverse_order(:id).limit(20)
+  bound = if params[:bound] then params[:bound].to_i else 0 end
+  @posts = Post.get_posts(bound)
   slim :index
 end
 
 get '/api/list' do
-  json Post.reverse_order(:id).limit(20)
+  bound = if params[:bound] then params[:bound].to_i else 0 end
+  json Post.get_posts(bound)
 end
 
 get '/create' do
