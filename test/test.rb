@@ -2,6 +2,8 @@
 
 require 'sinatra'
 require 'sinatra/json'
+require 'sinatra/content_for'
+require 'coffee-script'
 require 'sequel'
 require 'slim'
 
@@ -38,26 +40,26 @@ Sequel::Model.plugin :json_serializer
 
 class Post < Sequel::Model
 
-  def self.get_posts(bound=0, limit=32)
-    if bound <= 0
-      return Post.reverse_order(:id).limit(limit)
-    else
-      return Post.where{id < bound}.reverse_order(:id).limit(limit)
-    end
+  def self.get_posts(low_bound=nil, high_bound=nil, limit=32)
+    request = Post
+    request = request.where{id > low_bound} if low_bound
+    request = request.where{id < high_bound} if high_bound
+    return Post.reverse_order(:id).limit(limit)
   end
 
 end
 
 # sinatra
 get '/chat/?' do
-  bound = if params[:bound] then params[:bound].to_i else 0 end
-  @posts = Post.get_posts(bound)
   slim :chat
 end
 
+get '/noeyedeer/:id.js' do
+  coffee params[:id].to_sym
+end
+
 get '/api/chat' do
-  bound = if params[:bound] then params[:bound].to_i else 0 end
-  json Post.get_posts(bound)
+  json Post.get_posts(params[:low_bound], params[:high_bound])
 end
 
 post '/api/chat/post' do

@@ -1,5 +1,8 @@
-div#register-chat.ui.active.inverted.dimmer: div.content: div.center
-  div.ui.two.column.middle.aligned.relaxed.grid
+- content_for :javascripts do
+  script src="/noeyedeer/chat.js"
+
+div#register-chat.ui.inverted.dimmer
+  div.content: div.center: div.ui.two.column.middle.aligned.relaxed.grid
     div.column
       div.ui.form.segment
         div.field
@@ -15,23 +18,17 @@ div#register-chat.ui.active.inverted.dimmer: div.content: div.center
             div.ui.corner.label
               i.asterisk.icon
         div.field
-          div.ui.gray.submit.button Submit
+          div.ui.submit.button Login
     div.ui.vertical.divider Or
     div.center.aligned.column
-      div.ui.huge.gray.labeled.icon.button onclick="$('#register-chat').dimmer('hide')"
+      div#as-anon.ui.huge.labeled.icon.button
         i.question.icon
         | As anonymous
 
-div#loading-chat.ui.dimmer
+div#loading-chat.ui.inverted.dimmer
   div.ui.loader
 
-div.ui.two.column.middle.aligned.relaxed.grid
-  div.column
-    - for post in @posts
-      h3= post.title
-      p= post.body
-  div.column
-    - for post in @posts
-      h3= post.title
-      p= post.body
+div.ui.two.column.middle.aligned.relaxed.grid style="min-height: 400px"
+  div#private-chatbox.column
+  div#public-chatbox.column
 

@@ -10,22 +10,52 @@ html
     script src="/semantic/packaged/javascript/semantic.min.js"
     link rel="stylesheet" href="/semantic/packaged/css/semantic.min.css"
 
+    css:
+      body {
+        margin: 0px;
+      }
+      #menu-toggle {
+        position: fixed;
+        top: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        -ms-border-radius: 0px;
+        border-radius: 0px;
+        -webkit-border-bottom-right-radius: 30px;
+        -moz-border-bottom-right-radius: 30px;
+        -ms-border-bottom-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+      };
+
     javascript:
       $(document).ready(function(){
+        $('#menu-toggle').click(function(){
+          $('#menu-sidebar').sidebar('show');
+        });
+        $('#menu-sidebar').mouseleave(function(){
+          $('#menu-sidebar').sidebar('hide');
+        });
       });
 
+    == yield_content :javascripts
+
   body
-    div.ui.page.grid
-      div.ui.three.wide.column
-        div.ui.secondary.pointing.vertical.fluid.menu
-          a.item
-            i.home.icon
-            | Home
-          a.active.item
-            i.chat.icon
-            | Chat
-          a.item
-            i.user.icon
-            | User
-      div.ui.thirteen.wide.column.middle.aligned.segment
+    div#menu-toggle.ui.small.fade.animated.button
+      div.visible.content
+        i.unordered.list.icon
+      div.hidden.content
+        | Menu
+    div#menu-sidebar.ui.thin.floating.sidebar.grid
+      div.ui.secondary.pointing.vertical.grey.menu.fluid.column style="min-height: 100%"
+        a.item
+          i.home.icon
+          | Home
+        a.active.item
+          i.chat.icon
+          | Chat
+        a.item
+          i.user.icon
+          | User
+    div#main-content.ui.page.grid
+      div.column
         == yield
