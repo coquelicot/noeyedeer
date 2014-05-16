@@ -1,0 +1,36 @@
+doctype html
+
+html
+
+  head
+    meta charset="utf-8"
+    title= "noeyedeer"
+
+    script src="https://code.jquery.com/jquery-2.1.1.min.js"
+    script src="/semantic/packaged/javascript/semantic.min.js"
+    link rel="stylesheet" href="/semantic/packaged/css/semantic.min.css"
+
+    javascript:
+      $(document).ready(function(){
+      });
+
+  body
+    div.ui.left.overlay.sidebar
+      div.ui.secondary.vertical.pointing.menu
+        a.active.item
+          i.home.icon
+          | Home
+        a.item
+          i.chat.icon
+          | Chat
+        a.item
+          i.user.icon
+          | User
+    div.ui.page.grid
+      div.ui.column
+        div.ui.segment
+          div.ui.active.dimmer
+            div.ui.loader
+          == yield
+        button.ui.small.button onclick="$('.sidebar').sidebar('toggle');"
+          | Menu

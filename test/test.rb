@@ -52,7 +52,7 @@ end
 get '/list' do
   bound = if params[:bound] then params[:bound].to_i else 0 end
   @posts = Post.get_posts(bound)
-  slim :index
+  slim :index, :layout => :layout
 end
 
 get '/api/list' do
