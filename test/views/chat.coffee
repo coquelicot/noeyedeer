@@ -39,3 +39,4 @@ $(document).ready ->
     load_content()
 
   $('#msg-form').submit send_message
+  $('#msg-send').click -> $('#msg-form').submit()
