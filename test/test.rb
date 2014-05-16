@@ -28,9 +28,9 @@ end
 # Sequel
 DB = Sequel.connect("postgres://#{settings.dbhost}/#{settings.dbname}", :user => settings.dbuser, :password => settings.dbpswd)
 
-DB.create_table?(:post) do
+DB.create_table?(:posts) do
   primary_key :id
-  String :title
+  String :user
   Text :body
   DateTime :create_at
 end
@@ -62,10 +62,10 @@ get '/api/chat' do
   json Post.get_posts(params[:low_bound], params[:high_bound])
 end
 
-post '/api/chat/post' do
-  unless params[:title].empty? or params[:body].empty?
-    Post.create(:title => params[:title], :body => params[:body], :create_at => Time.now)
+post '/api/chat' do
+  unless params[:user].empty? or params[:body].empty?
+    Post.create(:user => params[:user], :body => params[:body], :create_at => Time.now)
   end
-  redirect "/chat", 303
+  "Sent"
 end
 

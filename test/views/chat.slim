@@ -22,13 +22,33 @@ div#register-chat.ui.inverted.dimmer
     div.ui.vertical.divider Or
     div.center.aligned.column
       div#as-anon.ui.huge.labeled.icon.button
-        i.question.icon
-        | As anonymous
+        i.users.icon
+        | Login as anonymous
 
 div#loading-chat.ui.inverted.dimmer
   div.ui.loader
 
-div.ui.two.column.middle.aligned.relaxed.grid style="min-height: 400px"
-  div#private-chatbox.column
-  div#public-chatbox.column
-
+div.ui.middle.aligned.relaxed.grid style="min-height: 500px"
+  div.two.column.row
+    div#private-chatbox.column.segment
+    div#public-chatbox.column.segment
+  div.one.column.row
+    form#msg-form.ui.form.column.segment action="."
+      div.ui.grid
+        div.ui.three.wide.column
+          div.field
+            div.ui.left.labeled.icon.input
+              input#msg-user type="text" placeholder="Username"
+              i.user.icon
+              div.ui.corner.label
+                i.asterisk.icon
+        div.ui.ten.wide.column
+          div.field
+            div.ui.left.labeled.icon.input
+              input#msg-msg type="text" placeholder="Message"
+              i.lock.icon
+              div.ui.corner.label
+                i.asterisk.icon
+        div.ui.two.wide.column
+          div.field
+            input.ui.submit.button type="submit" value="Send"
