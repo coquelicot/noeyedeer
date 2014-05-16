@@ -15,22 +15,17 @@ html
       });
 
   body
-    div.ui.left.overlay.sidebar
-      div.ui.secondary.vertical.pointing.menu
-        a.active.item
-          i.home.icon
-          | Home
-        a.item
-          i.chat.icon
-          | Chat
-        a.item
-          i.user.icon
-          | User
     div.ui.page.grid
-      div.ui.column
-        div.ui.segment
-          div.ui.active.dimmer
-            div.ui.loader
-          == yield
-        button.ui.small.button onclick="$('.sidebar').sidebar('toggle');"
-          | Menu
+      div.ui.three.wide.column
+        div.ui.secondary.pointing.vertical.fluid.menu
+          a.item
+            i.home.icon
+            | Home
+          a.active.item
+            i.chat.icon
+            | Chat
+          a.item
+            i.user.icon
+            | User
+      div.ui.thirteen.wide.column.middle.aligned.segment
+        == yield

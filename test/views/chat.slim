@@ -1,0 +1,37 @@
+div#register-chat.ui.active.inverted.dimmer: div.content: div.center
+  div.ui.two.column.middle.aligned.relaxed.grid
+    div.column
+      div.ui.form.segment
+        div.field
+          div.ui.left.labeled.icon.input
+            input type="text" placeholder="Username"
+            i.user.icon
+            div.ui.corner.label
+              i.asterisk.icon
+        div.field
+          div.ui.left.labeled.icon.input
+            input type="password" placeholder="Password"
+            i.lock.icon
+            div.ui.corner.label
+              i.asterisk.icon
+        div.field
+          div.ui.gray.submit.button Submit
+    div.ui.vertical.divider Or
+    div.center.aligned.column
+      div.ui.huge.gray.labeled.icon.button onclick="$('#register-chat').dimmer('hide')"
+        i.question.icon
+        | As anonymous
+
+div#loading-chat.ui.dimmer
+  div.ui.loader
+
+div.ui.two.column.middle.aligned.relaxed.grid
+  div.column
+    - for post in @posts
+      h3= post.title
+      p= post.body
+  div.column
+    - for post in @posts
+      h3= post.title
+      p= post.body
+

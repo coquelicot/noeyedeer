@@ -49,25 +49,21 @@ class Post < Sequel::Model
 end
 
 # sinatra
-get '/list' do
+get '/chat/?' do
   bound = if params[:bound] then params[:bound].to_i else 0 end
   @posts = Post.get_posts(bound)
-  slim :index, :layout => :layout
+  slim :chat
 end
 
-get '/api/list' do
+get '/api/chat' do
   bound = if params[:bound] then params[:bound].to_i else 0 end
   json Post.get_posts(bound)
 end
 
-get '/create' do
-  slim :create
-end
-
-post '/api/create' do
+post '/api/chat/post' do
   unless params[:title].empty? or params[:body].empty?
     Post.create(:title => params[:title], :body => params[:body], :create_at => Time.now)
   end
-  redirect "/list", 303
+  redirect "/chat", 303
 end
 
